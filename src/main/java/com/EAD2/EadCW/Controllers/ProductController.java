@@ -5,6 +5,7 @@ import com.EAD2.EadCW.Model.ProductDto;
 import com.EAD2.EadCW.Service.ProductsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,7 +30,7 @@ public class ProductController {
 
     @GetMapping({""})
     public String showProductsList(Model model) {
-        List<Product> products=repo.findAll();
+        List<Product> products=repo.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("products",products);
         return "products/index";
     }
@@ -110,7 +111,7 @@ public class ProductController {
         return "products/EditProducts";
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String updateProduct(Model model,@RequestParam int id,
                                 @Valid @ModelAttribute ProductDto productDto,BindingResult result){
 
