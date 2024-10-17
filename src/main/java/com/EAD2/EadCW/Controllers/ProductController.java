@@ -123,10 +123,11 @@ public class ProductController {
             model.addAttribute("products",products);
 
             if(result.hasErrors()){
-
+                return "products/EditProducts";
             }
 
             if(!productDto.getImageFile().isEmpty()){
+                //delete old image
                 String uploadDir="Public/images/";
                 Path oldImagePath = Paths.get(uploadDir+products.getImageFileName());
                 try{
@@ -135,6 +136,7 @@ public class ProductController {
                 catch (Exception ex){
                     System.out.println("Exception :"+ex.getMessage());
                 }
+                // save new image file
                 MultipartFile image =productDto.getImageFile();
                 Date createDate=new Date();
                 String storageFileName= createDate.getTime()+"_"+image.getOriginalFilename();
@@ -154,14 +156,13 @@ public class ProductController {
 
             repo.save(products);
 
-
         }
         catch(Exception ex){
             System.out.println("Exception :"+ex.getMessage());
 
         }
 
-        return "redirect:EditProducts";
+        return "redirect:/Products";
     }
 
 }
