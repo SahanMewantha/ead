@@ -162,7 +162,7 @@ public class ProductController {
 
         }
 
-        return "redirect:/Products";
+        return "redirect:/products";
     }
 
 }
