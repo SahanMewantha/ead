@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.List;
@@ -47,6 +47,10 @@ public class ProductController {
             @Valid @ModelAttribute ProductDto productDto,
             BindingResult result)
     {
+        if (productDto.getImageFile().isEmpty()) {
+            result.addError(new FieldError("productDto", "imageFile", "Image file is required"));
+        }
+
         if(result.hasErrors()){
             return "products/CreateProduct";
         }
@@ -71,8 +75,6 @@ public class ProductController {
             System.out.println("Exception :"+ex.getMessage());
         }
 
-
-
         Product products=new Product();
         products.setName(productDto.getName());
         products.setBrand(productDto.getBrand());
@@ -80,6 +82,7 @@ public class ProductController {
         products.setDescription(productDto.getDescription());
         products.setPrice(productDto.getPrice());
         products.setCreateAt(createDate);
+        products.setImageFileName(storageFileName);
 
 
         repo.save(products);
