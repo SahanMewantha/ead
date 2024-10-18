@@ -12,7 +12,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
-    @GetMapping("/get-all")
+    @GetMapping("/get-all-user")
     public List<UserDTO> getAll(){
         return userService.getAllUsers();
     }
