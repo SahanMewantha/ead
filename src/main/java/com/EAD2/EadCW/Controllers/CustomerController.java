@@ -2,8 +2,6 @@ package com.EAD2.EadCW.Controllers;
 
 import com.EAD2.EadCW.dto.CustomerDTO;
 import com.EAD2.EadCW.services.CustomerService;
-import com.EAD2.EadCW.services.UserService;
-import com.EAD2.EadCW.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
